@@ -147,8 +147,8 @@ var FirstPersonControls = function ( object, domElement ) {
 
 		if ( this.domElement === document ) {
 
-			this.mouseX = event.pageX - this.viewHalfX;
-			this.mouseY = event.pageY - this.viewHalfY;
+			 this.mouseX = event.pageX - this.viewHalfX;
+			this.mouseY = -(event.pageY - this.viewHalfY);
 
 		} else {
 
