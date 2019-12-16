@@ -64,28 +64,24 @@ window.onload = function init()
 {
     //set the scene and the camera up
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000000 );
-    //new spwan x - 2500 z -2500    
-    // camera.position.x = -2500;
-    // camera.position.set(0,0,400);
 
     scene = new THREE.Scene();
     console.log(camera.rotation)
 
-
-    //player rays for collision detection
+    //player
     var pCube = new THREE.CubeGeometry(25, 25 ,25 );
     player = new THREE.Mesh(pCube,material);
-    //player.rotation.xyz = camera.rotation.xyz
-    //this.player.rotateY(Math.PI)
     this.player.position.set(-2500,0,-2500)
     scene.add(player);
-    player.add(camera)
-
+    //added camera to player object
+    player.add(camera);
+    //moved from camrea to player object for collision detection
     controls = new FirstPersonControls( player );
     controls.movementSpeed = 550;
     controls.lookSpeed = 0.2;
      
     controls.lookAt( 0, 0, 0 );
+
     var canvas = document.createElement( 'canvas' );
     var context = canvas.getContext( 'webgl2', { alpha: false } );
     render = new THREE.WebGLRenderer( { canvas: canvas, context: context } );
@@ -116,8 +112,9 @@ window.onload = function init()
     mazeTest();
     torch();
     endcube();
-    fEmitter = createEmitter()
     targetLoader();
+    //load fire stuff
+    fEmitter = createEmitter()
     fb = new THREE.Mesh(fireball2, fireballM);
     fb.add(fbLight);
     animate();
@@ -473,8 +470,6 @@ function animate() {
                     fireballs[i] = undefined; 
                     tFire-=1;
                     }
-
-                
                 if(collisionResults[0].object.name=="target"){
                     scene.remove(collisionResults[0].object);
                     pointTotal += 5;                  
